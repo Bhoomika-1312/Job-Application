@@ -7,16 +7,27 @@ import {Button, RadioGroup, TextArea, TextField, Theme} from "@radix-ui/themes";
 import {redirect} from "next/navigation";
 import {useState} from "react";
 import "react-country-state-city/dist/react-country-state-city.css";
-import {
-  CitySelect,
-  CountrySelect,
-  StateSelect,
-} from "react-country-state-city";
+import { StateSelect } from "react-country-state-city";
+import { CitySelect } from "react-country-state-city";
+import { CountrySelect } from "react-country-state-city"; 
 
-export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc? : Job}) {
-  const [countryId, setCountryId] = useState(jobDoc?.countryId || 0);
-  const [stateId, setStateId] = useState(jobDoc?.stateId || 0);
-  const [cityId, setCityId] = useState(jobDoc?.cityId || 0);
+export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc : Job}) {
+  const [countryId, setCountryId] = useState<number>(() => {
+  const id = jobDoc.countryId;
+  return id !== undefined ? Number(id) : 0;
+});
+
+const [stateId, setStateId] = useState<number>(() => {
+  const id = jobDoc.stateId;
+  return id !== undefined ? Number(id) : 0;
+});
+
+const [cityId, setCityId] = useState<number>(() => {
+  const id = jobDoc.cityId;
+  return id !== undefined ? Number(id) : 0;
+});
+
+
   const [countryName, setCountryName] = useState(jobDoc?.country || '');
   const [stateName, setStateName] = useState(jobDoc?.state || '');
   const [cityName, setCityName] = useState(jobDoc?.city || '');
@@ -76,19 +87,14 @@ export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc? : Job
           Location
           <div className="flex flex-col sm:flex-row gap-4 *:grow">
             <CountrySelect
-              defaultValue={
-                countryId
-                ? { id: countryId, name: countryName }
-                : undefined
-              }
-              onChange={(e:any) => {
+              onChange={(e: any) => {
                 setCountryId(e.id);
                 setCountryName(e.name);
               }}
               placeHolder="Select Country"
             />
+
             <StateSelect
-              defaultValue={stateId ? {id:stateId,name:stateName} : 0}
               countryid={countryId}
               onChange={(e:any) => {
                 setStateId(e.id);
@@ -97,7 +103,6 @@ export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc? : Job
               placeHolder="Select State"
             />
             <CitySelect
-              defaultValue={cityId ? {id:cityId,name:cityName} : 0}
               countryid={countryId}
               stateid={stateId}
               onChange={(e:any) => {
@@ -112,13 +117,13 @@ export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc? : Job
         <div className="sm:flex">
           <div className="w-1/3">
             <h3>Job icon</h3>
-            <FontAwesomeIcon name="jobIcon" icon={faStar} defaultValue={jobDoc?.jobIcon || ''} />
+            <FontAwesomeIcon name="jobIcon" icon={faStar} />
           </div>
           <div className="grow">
             <h3>Contact person</h3>
             <div className="flex gap-2">
               <div className="">
-                <FontAwesomeIcon name="contactPhoto" icon={faUser} defaultValue={jobDoc?.contactPhoto || ''} />
+                <FontAwesomeIcon name="contactPhoto" icon={faUser}  />
               </div>
               <div className="grow flex flex-col gap-1">
                 <TextField.Root
