@@ -3,13 +3,14 @@ import { WorkOS } from "@workos-inc/node";
 import "@radix-ui/themes/styles.css";
 import "react-country-state-city/dist/react-country-state-city.css";
 import JobForm from "../../components/JobForm";
-
+import { Job } from "../../../models/Job";
 
 type PageProps = {
     params : {
         orgId : string;
     }
 };
+
 
 export default async function NewListingPage(props : PageProps) {
     const { user } = await withAuth();

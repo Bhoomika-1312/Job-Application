@@ -11,18 +11,21 @@ import { StateSelect } from "react-country-state-city";
 import { CitySelect } from "react-country-state-city";
 import { CountrySelect } from "react-country-state-city"; 
 
-export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc : Job}) {
+export default function JobForm({orgId, jobDoc} : {orgId : string, jobDoc? : Job}) {
   const [countryId, setCountryId] = useState<number>(() => {
+  if(!jobDoc) return 0;
   const id = jobDoc.countryId;
   return id !== undefined ? Number(id) : 0;
 });
 
 const [stateId, setStateId] = useState<number>(() => {
+  if(!jobDoc) return 0;
   const id = jobDoc.stateId;
   return id !== undefined ? Number(id) : 0;
 });
 
 const [cityId, setCityId] = useState<number>(() => {
+  if(!jobDoc) return 0;
   const id = jobDoc.cityId;
   return id !== undefined ? Number(id) : 0;
 });
