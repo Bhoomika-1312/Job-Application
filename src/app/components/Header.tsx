@@ -11,7 +11,7 @@ export default async function Header() {
             <Link href = {"/"} className="font-bold text-2xl mx-10"> Job board </Link>
             <nav className="flex gap-2  *:py-2 *:px-4 *:rounded-md">
               {!user && 
-              <Link href = {signInUrl} className="bg-gray-200"> Login </Link>}
+              <a href = {signInUrl} className="bg-gray-200"> Login </a>}
               {user && (
               <form action={async () => {
                 'use server';
